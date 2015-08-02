@@ -1,4 +1,4 @@
-# bankers-algorithm
+# bankers-algorithm v1
 
-#case study for our Operating System subject.
+case study for our Operating System subject.
 
