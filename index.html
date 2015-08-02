@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Banker's Algorithm</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="panel panel-default">
+		<div class="panel-body">
+	  		<h1>Banker's Algorithm</h1>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-2">
+					<strong>Total A</strong>
+					<input type="text" placeholder='Resource A' class='form-control' id='totalA'>
+				</div>
+				<div class="col-md-2">
+					<strong>Total B</strong>
+					<input type="text" placeholder='Resource B' class='form-control' id='totalB'>
+				</div>
+				<div class="col-md-2">
+					<strong>Total C</strong>
+					<input type="text" placeholder='Resource C' class='form-control' id='totalC'>
+				</div>
+			
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-2">
+					<strong>Allocated A</strong>
+					<input type="text" placeholder='Resource A' class='form-control' id='allocatedA'>
+				</div>
+				<div class="col-md-2">
+					<strong>Allocated B</strong>
+					<input type="text" placeholder='Resource B' class='form-control' id='allocatedB'>
+				</div>
+				<div class="col-md-2">
+					<strong>Allocated C</strong>
+					<input type="text" placeholder='Resource C' class='form-control' id='allocatedC'>
+				</div>
+				<div class="col-md-2">
+					<strong>Max A</strong>
+					<input type="text" placeholder='Resource A' class='form-control' id='maxA'>
+				</div>
+				<div class="col-md-2">
+					<strong>Max B</strong>
+					<input type="text" placeholder='Resource B' class='form-control' id='maxB'>
+				</div>
+				<div class="col-md-2">
+					<strong>Max C</strong>
+					<input type="text" placeholder='Resource C' class='form-control' id='maxC'>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button class='btn btn-default' id='btnAdd'><span class='glyphicon glyphicon-plus'></span> Add</button>
+				</div>
+			
+			</div>
+		</div>
+	
+		</div>
+		</div>
+		
+		
+		
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-4">
+
+				<div class="panel panel-primary">
+				  <div class="panel-heading">
+				    <h3 class="panel-title"><strong >Max</strong></h3>
+				  </div>
+				  <div class="panel-body">
+					   <table class="table table-bordered" id='tblMax'>
+							<thead>
+								<tr>
+									<th>Process</th>
+									<th>A</th>
+									<th>B</th>
+									<th>C</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>	
+						</table>
+				  </div>
+				</div>
+				</div>
+
+				<div class="col-md-4">
+
+					<div class="panel panel-primary">
+					  <div class="panel-heading">
+					    <h3 class="panel-title"><strong >Allocated</strong></h3>
+					  </div>
+					  <div class="panel-body">
+						  <table class="table table-bordered" id='tblAllocated'>
+							<thead>
+								<tr>
+									<th>Process</th>
+									<th>A</th>
+									<th>B</th>
+									<th>C</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>	
+						</table>
+					  </div>
+					</div>
+					
+					
+				</div>
+				<div class="col-md-4">
+
+					<div class="panel panel-primary">
+					  <div class="panel-heading">
+					    <h3 class="panel-title"><strong >Need</strong></h3>
+					  </div>
+					  <div class="panel-body">
+					    
+						<table class="table table-bordered" id='tblNeed'>
+							<thead>
+								<tr>
+									<th>Process</th>
+									<th>A</th>
+									<th>B</th>
+									<th>C</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>	
+						</table>
+					  </div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-6">
+					<table class="table table-bordered" id="tbldetails">
+						<tr>
+							<th></th>
+							<th>A</th>
+							<th>B</th>
+							<th>C</th>
+						</tr>
+						<tr>
+							<td>Allocated Resources</td>
+							<td id='allocatedRA'></td>
+							<td id='allocatedRB'></td>
+							<td id='allocatedRC'></td>
+						</tr>
+						<tr>
+							<td>Available Resources</td>
+							<td id='availRA'></td>
+							<td id='availRB'></td>
+							<td id='availRC'></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-6">
+				<button class='btn btn-primary' id='process'><span class="glyphicon glyphicon-cog"></span> PROCESS</button>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style='width:70%;'>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id='mtitle'></h4>
+        </div>
+        <div class="modal-body" id='mbody'>
+       
+        </div>
+       
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+	<script>
+	$(function(){
+		var process = 0;
+		var ulStart = '<ul class="timeline">'
+  		 var ulEnd = '</ul>'
+		var pStartElem = '<li><div class="timeline-badge"><i class="glyphicon glyphicon-cog"></i></div><div class="timeline-panel"><div class="timeline-body">';
+		var elemRemmove = '<li class="timeline-inverted"><div class="timeline-badge danger"><i class="glyphicon glyphicon-remove"></i></div><div class="timeline-panel"><div class="timeline-body">';
+		var elemOk = '<li class="timeline-inverted"><div class="timeline-badge success"><i class="glyphicon glyphicon-ok"></i></div><div class="timeline-panel"><div class="timeline-body">';
+		var elemRelease = '<li class="timeline-inverted"><div class="timeline-badge success"><i class="glyphicon glyphicon-share-alt"></i></div><div class="timeline-panel"><div class="timeline-body">';
+		
+		var endElem = '</div></div></li>';
+		$('input[type="text"]').keyup(function(){
+			var txtVal = $(this).val();
+			if(isNaN(txtVal) || parseInt(txtVal) < 0){
+				alert('Not a valid value');
+				$(this).val('');
+			}
+		});
+		$('#btnAdd').click(function(){
+			var allocatedA = parseInt($('#allocatedA').val());
+			var allocatedB = parseInt($('#allocatedB').val());
+			var allocatedC = parseInt($('#allocatedC').val());
+			var maxA = parseInt($('#maxA').val());
+			var maxB= parseInt($('#maxB').val());
+			var maxC = parseInt($('#maxC').val());
+			var totalA = parseInt($('#totalA').val());
+			var totalB= parseInt($('#totalB').val());
+			var totalC = parseInt($('#totalC').val());
+			var needA = 0;
+			var needB = 0;
+			var needC = 0;
+
+			if(!allocatedA || !allocatedB || !allocatedC || !maxA || !maxB || !totalA || !totalB || !totalC){
+				alert('Please complete the form');
+				return;
+			}
+			if((allocatedA > maxA) || (allocatedB > maxB) || (allocatedC > maxC)){
+					alert('Allocated value should be less than or equal to max value');
+					return;
+			}
+			process = parseInt(process) + 1;
+			needA  = maxA - allocatedA;
+			needB  = maxB - allocatedB;
+			needC  = maxC - allocatedC;
+			if(computeAvailable(allocatedA,allocatedB,allocatedC)){
+					$('#tblAllocated > tbody').append("<tr data-p='"+process+"'><td>P"+process+"</td><td>"+allocatedA+"</td><td>"+allocatedB+"</td><td>"+allocatedC+"</td></tr>");
+					$('#tblMax > tbody').append("<tr data-p='"+process+"'><td>P"+process+"</td><td>"+maxA+"</td><td>"+maxB+"</td><td>"+maxC+"</td></tr>");
+					$('#tblNeed > tbody').append("<tr data-p='"+process+"'><td>P"+process+"</td><td>"+needA+"</td><td>"+needB+"</td><td>"+needC+"</td></tr>");
+					clearInput();
+					fadeInbody();
+			} else {
+				alert('Invalid allocation of resources');
+			}
+		
+		});
+			function fadeInbody(){
+					$('#tblAllocated > tbody').hide();
+					$('#tblMax > tbody').hide();
+					$('#tblNeed > tbody').hide();
+					$('#tblAllocated > tbody').fadeIn();
+					$('#tblMax > tbody').fadeIn();
+					$('#tblNeed > tbody').fadeIn();
+			}
+			function clearInput(){
+				$('#allocatedA').val('');
+				$('#allocatedB').val('');
+				$('#allocatedC').val('');
+				$('#maxA').val('');
+				$('#maxB').val('');
+				$('#maxC').val('');
+			}
+			function computeAvailable(p1,p2,p3){
+				var totalA = parseInt($('#totalA').val());
+				var totalB= parseInt($('#totalB').val());
+				var totalC = parseInt($('#totalC').val());
+				var allocatedA = p1;
+				var allocatedB = p2;
+				var allocatedC = p3;
+				$('#tblAllocated > tbody > tr').each(function(){
+					var row = $(this);
+					var a = parseInt(row.children().eq(1).text());
+					var b = parseInt(row.children().eq(2).text());
+					var c = parseInt(row.children().eq(3).text());
+					allocatedA = allocatedA + a;
+					allocatedB = allocatedB + b;
+					allocatedC = allocatedC + c;
+
+				});
+				if((allocatedA > totalA) || (allocatedB > totalB) || (allocatedC > totalC) ){
+					return false;
+				}
+				 totalA = totalA - allocatedA;
+				 totalB = totalB - allocatedB;
+				 totalC = totalC - allocatedC;
+				$('#allocatedRA').html(allocatedA);
+				$('#allocatedRB').html(allocatedB);
+				$('#allocatedRC').html(allocatedC);
+				$('#availRA').html(totalA);
+				$('#availRB').html(totalB);
+				$('#availRC').html(totalC);
+				return true;
+			}
+			$('#process').click(function(){
+				var allocatedTblRow = $('tr','#tblAllocated > tbody');
+				var needTblRow =  $('tr','#tblNeed > tbody');
+				var strBody = "";
+				var availRA = parseInt($('#availRA').text());
+				var availRB = parseInt($('#availRB').text());
+				var availRC = parseInt($('#availRC').text());
+				var  success =[];
+				var all = Array.apply(null, {length: process}).map(Number.call, Number);
+				var failedCount = 0;
+				var i = 0;
+				while(i < process){
+						
+						if(success.indexOf(i) != -1){
+							i = i + 1;
+							continue;
+						}
+
+						var rowA = allocatedTblRow.eq(i);
+						var rowN = needTblRow.eq(i);
+						var aA = parseInt(rowA.children().eq(1).text());
+						var aB = parseInt(rowA.children().eq(2).text());
+						var aC = parseInt(rowA.children().eq(3).text());
+						var nA = parseInt(rowN.children().eq(1).text());
+						var nB = parseInt(rowN.children().eq(2).text());
+						var nC = parseInt(rowN.children().eq(3).text());
+						if(!aA || !aB || !aC) break;
+						var cToString = "<p><div class='col-md-6'>Available:</div> <div class='col-md-6'>A: "+availRA+" A: "+availRB+" A: "+availRC+" </div></p>";
+						var aToString =  "<p><div class='col-md-6'>Allocated: </div><div class='col-md-6'>A: " +aA + " B: " + aB + " C: " +aC+"</div></div></p>";
+						var nToString =  "<p><div class='col-md-6'>Need: </div><div class='col-md-6'>A: " + nA + " B: " + nB + " C: " + nC + "</div></p>";
+						strBody  = strBody + pStartElem + cToString + aToString + nToString + endElem;
+						if(availRA >= nA && availRB >= nB  && availRC >= nC){
+							
+							var rToString =  "<p><div class='col-md-6'>Releasing: </div><div class='col-md-6'>A: " + aA + " B: " + aB + " C: " + aC + "</div></p>";
+							availRA = availRA + aA;
+							availRB = availRB + aB;
+							availRC = availRC + aC;
+							var cToString = "<p><div class='col-md-6'>Available:</div> <div class='col-md-6'>A: "+availRA+" A: "+availRB+" A: "+availRC+" </div></p>";
+							strBody = strBody + elemOk + "<h3>Success</h3>" + endElem;
+							strBody = strBody + elemRelease + "<h3>Realising</h3>"+ rToString + cToString + endElem;
+						
+							success.push(i);
+							console.log(success.length + " = " + process);
+							if(success.length == process){
+								i = process;
+							} else {
+								i = 0;
+							}
+							
+						} else {
+							strBody = strBody + elemRemmove + "<h3>Failed</h3>" + endElem;
+							failedCount = failedCount + 1;
+							if(failedCount == process){
+								strBody = strBody + elemRemmove + "<h3>Deadlock occur</h3>" + endElem;
+								break;
+							}	
+							i = i + 1;			
+						}
+						
+			}
+				
+			
+				$('#mtitle').html("Process timeline");
+				$('#mbody').html(ulStart + strBody + ulEnd);
+				$('#myModal').modal('show');
+			});
+		});
+	</script>
+</body>
+</html>
